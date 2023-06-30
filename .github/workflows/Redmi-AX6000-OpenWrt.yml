@@ -134,23 +134,23 @@ jobs:
         name: ${{ env.FILE_DATE }}-${{ env.OPENWRT_NAME }}-${{ env.DEVICE_NAME }}
         path: ${{ env.FIRMWARE }}
 
-    - name: 生成release标签
-      id: tag
-      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
-      run: |
-        echo "release_tag=${{ env.FILE_DATE }}-${{ env.OPENWRT_NAME }}-${{ env.DEVICE_NAME }}" >> $GITHUB_OUTPUT
-        touch release.txt
-        echo "由衷感谢所有为openwrt无私奉献的大佬们" >> release.txt
-        echo "📥 固件下载" >> release.txt
-        echo "status=success" >> $GITHUB_OUTPUT
+#    - name: 生成release标签
+#      id: tag
+#      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+#      run: |
+#        echo "release_tag=${{ env.FILE_DATE }}-${{ env.OPENWRT_NAME }}-${{ env.DEVICE_NAME }}" >> $GITHUB_OUTPUT
+#        touch release.txt
+#        echo "由衷感谢所有为openwrt无私奉献的大佬们" >> release.txt
+#        echo "📥 固件下载" >> release.txt
+#        echo "status=success" >> $GITHUB_OUTPUT
         
-    - name: 发布至release
-      uses: softprops/action-gh-release@v1
-      if: steps.tag.outputs.status == 'success' && !cancelled()
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        files: ${{ env.FIRMWARE }}/*
-        name: ${{ env.FILE_DATE }}-${{ env.OPENWRT_NAME }}-${{ env.DEVICE_NAME }}
-        tag_name: ${{ steps.tag.outputs.release_tag }}
-        body_path: release.txt
+#    - name: 发布至release
+#      uses: softprops/action-gh-release@v1
+#      if: steps.tag.outputs.status == 'success' && !cancelled()
+#      env:
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      with:
+#        files: ${{ env.FIRMWARE }}/*
+#        name: ${{ env.FILE_DATE }}-${{ env.OPENWRT_NAME }}-${{ env.DEVICE_NAME }}
+#        tag_name: ${{ steps.tag.outputs.release_tag }}
+#        body_path: release.txt
